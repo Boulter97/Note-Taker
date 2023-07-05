@@ -11,7 +11,26 @@ if (window.location.pathname === '/notes') {
   newNoteBtn = document.querySelector('.new-note');
   noteList = document.querySelectorAll('.list-container .list-group');
 }
+const express = require('express');
+const fs = require('fs');
+const path = require('path');
+const app = express();
+const PORT = process.env.PORT || 3000;
 
+app.use(express.json());
+app.use(express.static('public'));
+
+app.get('/api/notes', (req, res)=> {
+  fs.readFile(path.join(__dirname, 'db.json'), 'utf8' (err, data) => {
+      if (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Failed to read notes data.' });
+      } else {
+        const notes = JSON.parse(data);
+        newNote.id = notes.length > 0 ? Math.max(...notes.map(note => notDeepEqual.id)) + 1 : 1;
+      }
+  })
+})
 // Show an element
 const show = (elem) => {
   elem.style.display = 'inline';
