@@ -20,17 +20,39 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.static('public'));
 
-app.get('/api/notes', (req, res)=> {
-  fs.readFile(path.join(__dirname, 'db.json'), 'utf8' (err, data) => {
-      if (err) {
-        console.error(err);
-        res.status(500).json({ error: 'Failed to read notes data.' });
-      } else {
-        const notes = JSON.parse(data);
-        newNote.id = notes.length > 0 ? Math.max(...notes.map(note => notDeepEqual.id)) + 1 : 1;
-      }
-  })
-})
+app.get('/api/notes', (req, res) => {
+  fs.readFile(path.join(__dirname, 'db.json'), 'utf8', (err, data) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Failed to read notes data.' });
+    } else {
+      const notes = JSON.parse(data);
+      res.json(notes);
+    }
+  });
+});
+
+app.post('/api/notes', (req, res) => {
+  const newNote = req.body;
+  fs.readFile(path.join(__dirname, 'db.json'), 'utf8', (err, data) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Failed to read notes data.' });
+    } else {
+      const notes = JSON.parse(data);
+      newNote.id = notes.length > 0 ? Math.max(...notes.map(note => note.id)) + 1 : 1;
+      notes.push(newNote);
+      fs.writeFile(path.join(__dirname, 'db.json'), JSON.stringify(notes), 'utf8', err => {
+        if (err) {
+          console.error(err);
+          res.status(500).json({ error: 'Failed to save the note.' });
+        } else {
+          res.json(newNote);
+        }
+      });
+    }
+  });
+});
 // Show an element
 const show = (elem) => {
   elem.style.display = 'inline';
