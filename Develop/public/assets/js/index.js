@@ -5,16 +5,25 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 const dbFilePath = path.join(__dirname, 'db', 'db.json');
-const notesFilePath = '/Users/boulter97/Documents/Note-Taker/Develop/public/notes.html';
+const publicDirectoryPath = path.join(__dirname, '../../');
+const notesFilePath = path.join(__dirname, '../../notes.html');
 
 
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public')));
-
-
+app.use(express.static(publicDirectoryPath));
+console.log(publicDirectoryPath)
 app.get('/notes', (req, res) => {
-  res.sendFile(notesFilePath);
+  fs.readFile(notesFilePath, 'utf8', (err, data) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Failed to read notes file.' });
+    } else {
+      res.send(data);
+    }
+  });
 });
+
+
 
 app.get('/api/notes', (req, res) => {
   fs.readFile(dbFilePath, 'utf8', (err, data) => {
