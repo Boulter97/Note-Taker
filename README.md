@@ -6,6 +6,8 @@ Note Taker
 This homework is to devlope an application called Note Taker that can be used to write and save notes. This application will use an Express.js back end and will save and retrieve note data from a JSON file.
 
 The application’s front end has already been created. It's my job to build the back end, connect the two, and then deploy the entire application to Heroku.
+
+-Developer notes:- add an issue deploying to heroku, it deploys but does run due to an npm start error.\
  
 **User Story**
 -
@@ -31,10 +33,9 @@ The application’s front end has already been created. It's my job to build the
 
 **Deployed link & Screenshot**
 -
-- (Put Link Here)
-
-(Put Screenshot Here)
-
+- https://notetakercb-0e9637c0d899.herokuapp.com/
+  
+<img width="1406" alt="Screenshot 2023-07-07 at 7 36 47 pm" src="https://github.com/Boulter97/Note-Taker/assets/118101244/49fe25cd-eb39-4a6d-bce0-b41ecbe0bbb0">
 
 **References & Resources**
 -
@@ -42,3 +43,4 @@ The application’s front end has already been created. It's my job to build the
 - https://www.youtube.com/
 - https://developer.mozilla.org/en-US/
 - https://courses.bootcampspot.com/courses/2384/assignments/44493?module_item_id=829430
+- https://stackdiary.com/tutorials/npm-err-missing-script-start/
